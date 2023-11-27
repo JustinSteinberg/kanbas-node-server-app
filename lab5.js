@@ -18,7 +18,14 @@ const assignment = {
 const Lab5 = (app) => {
 
     app.get("/a5/todos", (req, res) => {
-        res.json(todos);
+      const { completed } = req.query;
+      if (completed !== undefined) {
+        const completedTodos = todos.filter(
+          (t) => t.completed === completed);
+        res.json(completedTodos);
+        return;
+      }
+      res.json(todos);
     });
 
     app.post("/a5/todos", (req, res) => {
@@ -40,7 +47,7 @@ const Lab5 = (app) => {
         todos.push(newTodo);
         res.json(todos);
       });
-
+   
       app.get("/a5/todos/:id/completed/:completed", (req, res) => {
         const {id, completed} = req.params;
         const todo = todos.find((t) => t.id === parseInt(id));
