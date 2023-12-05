@@ -9,7 +9,8 @@ import mongoose from "mongoose";
 import UserRoutes from "./users/routes.js";
 import session from "express-session";
 
-mongoose.connect("mongodb://localhost:27017/kanbas");
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://localhost:27017/kanbas";
+mongoose.connect(CONNECTION_STRING);
 const app = express()
 app.use(cors({
     credentials: true,
